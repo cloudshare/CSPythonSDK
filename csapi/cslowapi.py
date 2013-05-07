@@ -8,6 +8,10 @@ except ImportError:
     from urllib import quote, urlopen
     from urllib2 import HTTPError    
 
+# make unicode available in python 3
+if 'unicode' not in globals():
+    unicode = str
+
 def token_generator():
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(10))
 
@@ -77,7 +81,7 @@ class CSLowApi(object):
         if self.version != "v1":
             params['token'] = token_generator()
         
-        sorted_param_keys = sorted(params.keys(), key=str.lower)
+        sorted_param_keys = sorted(params.keys(), key=lambda x: unicode.lower(x) if type(x) == unicode else str.lower)
         query = ''
         for pkey in sorted_param_keys:
             pkey_lower = pkey.lower()
@@ -92,9 +96,17 @@ class CSLowApi(object):
             query += pkey
             if pvalue and len(pvalue) > 0:
                 hmac.update(pvalue.encode('utf-8'))
-                query += '=' + quote(pvalue)
+                query += '=' + quote(pvalue.encode('utf-8'))
 
-        return 'https://{0}/Api/{1}/{2}/{3}?{4}&HMAC={5}'.format(self.host, self.version, category, command, query, hmac.hexdigest())
+
+        return (b'https://' + 
+                self.host.encode('utf-8') + 
+                b'/Api/' + 
+                self.version.encode('utf-8') + b'/' +
+                category.encode('utf-8') + b'/' +
+                command.encode('utf-8') + b'?' +
+                query.encode('utf-8') + b'&HMAC=' + 
+                hmac.hexdigest().encode('utf-8')).decode('utf-8')
 
     def check_keys(self):
         return self.call('ApiTest', 'Ping').json()['data']
