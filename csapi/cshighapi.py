@@ -105,6 +105,9 @@ class CSHighApi (object):
         self.call('env', 'RebootVm', EnvId=env['envId'], VmId=vm['vmId'])
 
 
+    def execute_path(self, env, vm, path):
+        self.call('env', 'ExecutePath', EnvId=env['envId'], VmId=vm['vmId'], Path=path)
+
      # CloudFolders
 
     def get_cloudfolders_info(self):
@@ -116,8 +119,16 @@ class CSHighApi (object):
     def unmount(self, env):
         self.call('env', 'Unmount', EnvId=env['envId'])
 
+    def mount_and_fetch_info(self, env):
+        return self.call('env', 'MountAndFetchInfo', EnvId=env['envId'])
+
      # Login
 
     def get_login_url(self, url):
         return self.call('env', 'GetLoginUrl', Url=url)
+
+    # Admin
+
+    def list_allowed_commands(self):
+        return self.call('admin', 'ListAllowedCommands')
 
