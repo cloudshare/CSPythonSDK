@@ -1,4 +1,4 @@
-import time, hashlib, json, random, string
+import time, hashlib, json, random, string, sys
 try:
     from urllib.request import urlopen
     from urllib.parse import quote
@@ -93,11 +93,10 @@ class CSLowApi(object):
 
             hmac.update(pkey_lower.encode('utf-8'))
             pvalue = params[pkey]
-            query += pkey + '='
+            query += pkey
             if pvalue and len(pvalue) > 0:
                 hmac.update(pvalue.encode('utf-8'))
-                query += quote(pvalue.encode('utf-8'))
-
+                query += '=' + quote(pvalue.encode('utf-8'))
 
         return (b'https://' + 
                 self.host.encode('utf-8') + 
