@@ -37,6 +37,9 @@ cloudshare folder contains a command line tool that uses `CSHighApi`, `CSLowApi`
       cf
         Cloud Folders
 
+      config
+        Configuration settings edit
+
       create
         Create Environment
 
@@ -123,7 +126,7 @@ You can choose which formatting type will be the client's default - the raw JSON
         
 2. Create a new empty environment and add machines to it
         
-        $ python cloudshare info projectsList
+        $ python cloudshare info projectslist
         projectA
         projectB
         projectC

@@ -135,12 +135,12 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Entities Information"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ),
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ),
                           ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
 
         @controller.expose(help="command under the info base namespace", hide=True)
         def default(self):
-            print 'Available commands: list | state | projectsList'
+            print 'Available commands: list | state | projectslist'
         
         @controller.expose(help="List your environments")
         def list(self):
@@ -155,7 +155,7 @@ def main():
                 print 'Usage: info state -i=<ENV_ID>'
 
         @controller.expose(help="Get projects list")
-        def projectsList(self):
+        def projectslist(self):
             projectsData = api.create_ent_app_env_options('', '', '')
             prList = set()
             for projectPrototypeResourcePackage in projectsData:
@@ -195,7 +195,7 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Environment Management"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ), ( ['-s', '--snapshotId'], dict(dest='snapshotId', help='snapshot id') ),
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ),
                         ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),
                         ( ['-c'], dict(dest='noConfirm', help='no confirmations', action='store_true') ),]
 
@@ -275,7 +275,7 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Manage your VMs"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ), ( ['-v', '--vmId'], dict(dest='vmId', help='virtual machine id') ), ( ['-s', '--scriptPath'], dict(dest='scriptPath', help='script path') ),
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-v', '--vm-id'], dict(dest='vmId', help='virtual machine id') ), ( ['-s', '--script-path'], dict(dest='scriptPath', help='script path') ),
                         ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),
                         ( ['-c'], dict(dest='noConfirm', help='no confirmations', action='store_true') ),]
 
@@ -345,7 +345,7 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Cloud folders actions"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ), ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
 
         @controller.expose(help="command under the cf base namespace", hide=True)
         def default(self):
@@ -396,9 +396,9 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Templates actions"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ),
-                        ( ['-t', '--tmplId'], dict(dest='tmplId', help='template id') ),
-                        ( ['-n', '--newVmName'], dict(dest='newVmName', help='new vm name') ),
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ),
+                        ( ['-t', '--tmpl-id'], dict(dest='tmplId', help='template id') ),
+                        ( ['-n', '--new-vm-name'], dict(dest='newVmName', help='new vm name') ),
                         ( ['-d', '--description'], dict(dest='description', help='new vm description') ),
                         ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') )]
 
@@ -451,16 +451,16 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Create environment"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ), 
-            ( ['-c', '--envPolicyId'], dict(dest='envPolicyId', help='policy id') ), 
-            ( ['-s', '--snapshotId'], dict(dest='snapshotId', help='snapshot id') ), 
-            ( ['-n', '--newName'], dict(dest='newName', help='environment new name') ), 
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), 
+            ( ['-c', '--env-policy-id'], dict(dest='envPolicyId', help='policy id') ), 
+            ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ), 
+            ( ['-n', '--new-name'], dict(dest='newName', help='environment new name') ), 
             ( ['-d', '--description'], dict(dest='description', help='new environment description') ), 
-            ( ['-showAll'], dict(dest='showAll', help='show all - use no filters', action='store_true') ), 
-            ( ['-pn', '--projectName'], dict(dest='projectName', help='project name') ), 
-            ( ['-p', '--projectFilter'], dict(dest='projectFilter', help='project name filter') ), 
-            ( ['-b', '--blueprintFilter'], dict(dest='blueprintFilter', help='blueprint name filter') ), 
-            ( ['-o', '--policyFilter'], dict(dest='policyFilter', help='environment policy name filter') ),
+            ( ['-show-all'], dict(dest='showAll', help='show all - use no filters', action='store_true') ), 
+            ( ['-pn', '--project-name'], dict(dest='projectName', help='project name') ), 
+            ( ['-p', '--project-filter'], dict(dest='projectFilter', help='project name filter') ), 
+            ( ['-b', '--blueprint-filter'], dict(dest='blueprintFilter', help='blueprint name filter') ), 
+            ( ['-o', '--policy-filter'], dict(dest='policyFilter', help='environment policy name filter') ),
             ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
 
         @controller.expose(help="command under the create base namespace", hide=True)
@@ -568,8 +568,8 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Snapshots info and settings"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ), 
-            ( ['-s', '--snapshotId'], dict(dest='snapshotId', help='snapshot id') ),
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), 
+            ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ),
             ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
 
         @controller.expose(help="command under the snapshot base namespace", hide=True)
@@ -618,13 +618,13 @@ def main():
             label = 'createsnapshot'
             interface = controller.IController
             stacked_on = None
-            description = "Create environment from a snapshot"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ), 
-            ( ['-n', '--snapshotName'], dict(dest='snapshotName', help='snapshot name') ),
-            ( ['-bn', '--blueprintName'], dict(dest='blueprintName', help='new blueprint name') ),
-            ( ['-b', '--blueprintId'], dict(dest='blueprintId', help='destination blueprint id') ),
+            description = "Create snapshot actions"
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), 
+            ( ['-n', '--snapshot-name'], dict(dest='snapshotName', help='snapshot name') ),
+            ( ['-bn', '--blueprint-name'], dict(dest='blueprintName', help='new blueprint name') ),
+            ( ['-b', '--blueprint-id'], dict(dest='blueprintId', help='destination blueprint id') ),
             ( ['-d', '--description'], dict(dest='description', help='snapshot description') ),
-            ( ['-s', '--snapshotId'], dict(dest='snapshotId', help='snapshot id') ),
+            ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ),
             ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),
             ( ['-sd'], dict(dest='setDefault', help='set as default', action='store_true') ),]
 
@@ -679,8 +679,8 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "RDP connection to VMs"
-            arguments = [ ( ['-i', '--envId'], dict(dest='envId', help='environment id') ), 
-            ( ['-v', '--vmId'], dict(dest='vmId', help='virtual machine id') ),
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), 
+            ( ['-v', '--vm-id'], dict(dest='vmId', help='virtual machine id') ),
             ( ['-c'], dict(dest='console', help='is console connection', action='store_true') ),
             ( ['-dw', '--width'], dict(dest='width', help='desktop width') ),
             ( ['-dh', '--height'], dict(dest='height', help='desktop height') ),
@@ -713,8 +713,8 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Configuration settings edit"
-            arguments = [ ( ['-i', '--apiId'], dict(dest='apiId', help='API_ID') ),
-                        ( ['-k', '--apiKey'], dict(dest='apiKey', help='API_KEY') ),
+            arguments = [ ( ['-i', '--api-id'], dict(dest='apiId', help='API_ID') ),
+                        ( ['-k', '--api-key'], dict(dest='apiKey', help='API_KEY') ),
                         ( ['-s', '--server'], dict(dest='server', help='API_SERVER') ),]
             
 
