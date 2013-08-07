@@ -83,21 +83,25 @@ We support 2 kinds of usage options
 
 1. Running the cli's from source code:
 
- Install `Cement` framework (http://builtoncement.com/2.0/):
+ Install `Cement` framework:
     
-    1. download and run https://bitbucket.org/pypa/setuptools/downloads/ez_setup.py
+    1. if you have pip installed simply run 'pip install cement', if you don't have it do stages 2+3:
+    
+    2. download and run https://bitbucket.org/pypa/setuptools/downloads/ez_setup.py
 
-    2. run c:\<PythonFolder>\Scripts>easy_install.exe cement
+    3. run c:\<PythonFolder>\Scripts>easy_install.exe cement
     
-    you can also use pip in order to install it - 'pip install cement'
+    use 'python cloudshare' to start from the SDK folder in order to start using the CloudShare CLI
     
-    use 'python cloudshare' to start
+    you can read more about `Cement` framework here: http://builtoncement.com/2.0/
 
 2. Use the executable:
 
- Extract executableClient.zip
+ go to executableClient folder
  
  Verify 'config.conf' file is located in the same folder of the executable 'cloudshare.exe' file
+ 
+ Go to the SDK folder
  
  Instead of 'python cloudshare' just use 'cloudshare'
 

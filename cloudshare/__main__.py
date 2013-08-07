@@ -102,7 +102,7 @@ def main():
         class Meta:
             label = 'base'
             description = "CloudShare API client"
-            arguments = [ ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ), ]
+            arguments = [ ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options (RAWJSON | FORMATTED)') ), ]
 
         @controller.expose(hide=True, aliases=['run'])
         def default(self):
@@ -136,7 +136,7 @@ def main():
             stacked_on = None
             description = "Entities Information"
             arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ),
-                          ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
+                          ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),]
 
         @controller.expose(help="command under the info base namespace", hide=True)
         def default(self):
@@ -196,7 +196,7 @@ def main():
             stacked_on = None
             description = "Environment Management"
             arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ),
-                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),
+                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),
                         ( ['-c'], dict(dest='noConfirm', help='no confirmations', action='store_true') ),]
 
         @controller.expose(help="command under the env base namespace", hide=True)
@@ -276,7 +276,7 @@ def main():
             stacked_on = None
             description = "Manage your VMs"
             arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-v', '--vm-id'], dict(dest='vmId', help='virtual machine id') ), ( ['-s', '--script-path'], dict(dest='scriptPath', help='script path') ),
-                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),
+                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),
                         ( ['-c'], dict(dest='noConfirm', help='no confirmations', action='store_true') ),]
 
         @controller.expose(help="command under the vm base namespace", hide=True)
@@ -345,7 +345,7 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Cloud folders actions"
-            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),]
 
         @controller.expose(help="command under the cf base namespace", hide=True)
         def default(self):
@@ -400,7 +400,7 @@ def main():
                         ( ['-t', '--tmpl-id'], dict(dest='tmplId', help='template id') ),
                         ( ['-n', '--new-vm-name'], dict(dest='newVmName', help='new vm name') ),
                         ( ['-d', '--description'], dict(dest='description', help='new vm description') ),
-                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') )]
+                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') )]
 
         @controller.expose(help="command under the tmpl base namespace", hide=True)
         def default(self):
@@ -461,7 +461,7 @@ def main():
             ( ['-p', '--project-filter'], dict(dest='projectFilter', help='project name filter') ), 
             ( ['-b', '--blueprint-filter'], dict(dest='blueprintFilter', help='blueprint name filter') ), 
             ( ['-o', '--policy-filter'], dict(dest='policyFilter', help='environment policy name filter') ),
-            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
+            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),]
 
         @controller.expose(help="command under the create base namespace", hide=True)
         def default(self):
@@ -512,7 +512,7 @@ def main():
             stacked_on = None
             description = "Login and manage your credentials"
             arguments = [ ( ['-u', '--url'], dict(dest='url', help='url to redirect to') ),
-                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
+                        ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),]
 
         @controller.expose(help="command under the login base namespace", hide=True)
         def default(self):
@@ -570,7 +570,7 @@ def main():
             description = "Snapshots info and settings"
             arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), 
             ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ),
-            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
+            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),]
 
         @controller.expose(help="command under the snapshot base namespace", hide=True)
         def default(self):
@@ -625,7 +625,7 @@ def main():
             ( ['-b', '--blueprint-id'], dict(dest='blueprintId', help='destination blueprint id') ),
             ( ['-d', '--description'], dict(dest='description', help='snapshot description') ),
             ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ),
-            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),
+            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),
             ( ['-sd'], dict(dest='setDefault', help='set as default', action='store_true') ),]
 
         @controller.expose(help="command under the createsnapshot base namespace", hide=True)
@@ -684,7 +684,7 @@ def main():
             ( ['-c'], dict(dest='console', help='is console connection', action='store_true') ),
             ( ['-dw', '--width'], dict(dest='width', help='desktop width') ),
             ( ['-dh', '--height'], dict(dest='height', help='desktop height') ),
-            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options, default is RAWJSON') ),]
+            ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),]
 
         @controller.expose(help="command under the rdp base namespace", hide=True)
         def default(self):
