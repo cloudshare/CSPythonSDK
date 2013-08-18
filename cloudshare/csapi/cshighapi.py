@@ -113,8 +113,11 @@ class CSHighApi (object):
         return self.call('env', 'RebootVm', EnvId=envId, VmId=vmId)
     
     def execute_path(self, envId, vmId, path):
-        return self.call('env', 'ExecutePath', EnvId=envId, VmId=vmId, Path=path)
+        return self.call('env', 'ExecutePathExt', EnvId=envId, VmId=vmId, Path=path)
 
+    def check_execution_id(self, envId, vmId, exec_id):
+        return self.call('env', 'CheckExecutionStatus', EnvId=envId, VmId=vmId, ExecutionId=exec_id)    
+        
      # CloudFolders
 
     def get_cloudfolders_info(self):

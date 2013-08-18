@@ -265,8 +265,30 @@ def main():
             print 'VM is being rebooted'
 
     def printFormattedVmExecPath(content):
-        if content and content['executed_path']:
+        if content and content['executionId']:
             print 'Script is being executed on VM'
+            
+    def printFormattedVmCheckExecId(content):
+        if content:
+            if content['success']:
+                print 'Was execution successful - ' + content['success']
+            else:
+                print 'no execution success retult yet'
+
+            if content['error_code']:
+                print 'exit code:' + content['error_code']
+            else:
+                print 'no exit code yet'
+            
+            if content['standard_output']:
+                print 'stdout:' + content['standard_output']
+            else:
+                print 'no stdout'
+
+            if content['standard_error']:
+                print 'stderr:' + content['standard_error']
+            else:
+                print 'no stderr'
             
     class VmController(controller.CementBaseController):
 
@@ -276,12 +298,13 @@ def main():
             stacked_on = None
             description = "Manage your VMs"
             arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-v', '--vm-id'], dict(dest='vmId', help='virtual machine id') ), ( ['-s', '--script-path'], dict(dest='scriptPath', help='script path') ),
+                        ( ['-e', '--exec-id'], dict(dest='execId', help='execution id') ),
                         ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),
                         ( ['-c'], dict(dest='noConfirm', help='no confirmations', action='store_true') ),]
 
         @controller.expose(help="command under the vm base namespace", hide=True)
         def default(self):
-            print 'Available commands: delete | revert | reboot | execute'
+            print 'Available commands: delete | revert | reboot | execute | checkexecute'
         
         @controller.expose(help="Delete vm")
         def delete(self):
@@ -311,6 +334,13 @@ def main():
                 sendToOutput(api.execute_path(self.pargs.envId, self.pargs.vmId, self.pargs.scriptPath), self.pargs, printFormattedVmExecPath)
             else:
                 print 'Usage: vm execute -i=<ENV_ID> -v=<VM_ID> -s=<SCRIPT_PATH>'
+                
+        @controller.expose(help="Check execution status of a script")
+        def checkexecute(self):
+            if self.pargs.envId and self.pargs.vmId and self.pargs.execId:
+                sendToOutput(api.check_execution_id(self.pargs.envId, self.pargs.vmId, self.pargs.execId), self.pargs, printFormattedVmCheckExecId)
+            else:
+                print 'Usage: vm checkexecute -i=<ENV_ID> -v=<VM_ID> -e=<EXECUTION_ID>'
 
     #======================================================================================================================================
     #== CloudFolders Controller
