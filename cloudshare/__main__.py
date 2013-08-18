@@ -270,10 +270,13 @@ def main():
             
     def printFormattedVmCheckExecId(content):
         if content:
-            if content['success']:
-                print 'Was execution successful - ' + content['success']
+            if content['success'] != None:
+                if content['success'] == True:
+                    print 'Execution was successful'
+                else:
+                    print 'Execution failed'
             else:
-                print 'no execution success retult yet'
+                print 'no execution success result yet'
 
             if content['error_code']:
                 print 'exit code:' + content['error_code']
