@@ -26,7 +26,7 @@ by the CloudShare REST API. The `call()` method in `CSHighApi` can be used to ca
 
 ### Command line
 
-cloudshare folder contains a command line tool that uses `CSHighApi`, `CSLowApi` and `Cement` framework. It used to run API calls and returns raw JSON responses or human readable responses to standard output.
+'Python\cloudshare' folder contains a command line tool that uses `CSHighApi`, `CSLowApi` and `Cement` framework. It used to run API calls and returns raw JSON responses or human readable responses to standard output.
     
 	usage: python cloudshare <CMD> -opt1 --opt2=VAL [arg1] [arg2] ...
 
@@ -97,13 +97,13 @@ We support 2 kinds of usage options
 
 2. Use the executable:
 
- go to executableClient folder
+ go to WindowsCLI folder
  
  Verify 'config.conf' file is located in the same folder of the executable 'cloudshare.exe' file
  
  Go to the SDK folder
  
- Instead of 'python cloudshare' just use 'cloudshare'
+ Instead of 'python cloudshare' just use 'cloudshare.exe'
 
 ## Configuration file
     
