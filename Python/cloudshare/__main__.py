@@ -114,8 +114,12 @@ def main():
     
     def printFormattedList(content):
         for env in content:
+            hasProject = env['project'] != None
             env = cleanupDictionary(env)
-            print env['envId'] + ' - ' + env['name'] + ' of ' + env['project'] + ' (' + env['status_text'] + ')'
+            if hasProject:
+                print env['envId'] + ' - ' + env['name'] + ' of ' + env['project'] + ' (' + env['status_text'] + ')'
+            else:
+                print env['envId'] + ' - ' + env['name'] + ' (' + env['status_text'] + ')'
                 
     def printFormattedState(content):
         content = cleanupDictionary(content)
