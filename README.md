@@ -1,10 +1,9 @@
-CloudShare Python SDK API and API cli
+CloudShare Python SDK API and API CLI
 =====================================
 
 ## Description
 
-An SDK for developing applications in Python to connect to the CloudShare service using the CloudShare REST API. The SDK
-interfaces to the CloudShare API and tries to present a useful Python API for developers. 
+1. An SDK for developing applications in Python to connect to the CloudShare service using the CloudShare REST API. 2. A CLI (Command Line Interface) executable to communicate with the CloudShare service via Windows machines.
 
 The SDK includes Python methods for the following API activities:
 
@@ -79,31 +78,31 @@ by the CloudShare REST API. The `call()` method in `CSHighApi` can be used to ca
 
 ## Installation
 
-We support 2 kinds of usage options
+We support two usage options:
 
-1. Running the cli's from source code:
+1. Running the CLI from source code:
 
  Install `Cement` framework:
     
-    1. if you have pip installed simply run 'pip install cement', if you don't have it do stages 2+3:
+    1. If you have pip installed simply run 'pip install cement', if you don't, move to step 2+3:
     
-    2. download and run https://bitbucket.org/pypa/setuptools/downloads/ez_setup.py
+    2. Download and run https://bitbucket.org/pypa/setuptools/downloads/ez_setup.py
 
-    3. run c:\<PythonFolder>\Scripts>easy_install.exe cement
+    3. Run c:\<PythonFolder>\Scripts>easy_install.exe cement
     
     use 'python cloudshare' to start from the SDK folder in order to start using the CloudShare CLI
     
     you can read more about `Cement` framework here: http://builtoncement.com/2.0/
 
-2. Use the executable:
+2. Running the CLI executable:
 
- go to WindowsCLI folder
+ Go to WindowsCLI folder
  
- Verify 'config.conf' file is located in the same folder of the executable 'cloudshare.exe' file
+ Verify 'config.conf' file is located in the same folder of 'cloudshare.exe' executable file
  
  Go to the SDK folder
  
- Instead of 'python cloudshare' just use 'cloudshare.exe'
+ Use 'cloudshare.exe' to run the commands
 
 ## Configuration file
     
@@ -156,7 +155,7 @@ You can choose which formatting type will be the client's default - the raw JSON
 
 ## Under the hood
 
-The example below shows how the cli works - it makes High Level API to send the *ListEnvironments* REST API request to the server to obtain
+The example below shows how the CLI works - it makes High Level API to send the *ListEnvironments* REST API request to the server to obtain
 a list of all the user's environments, then send a *GetEnvironmentState* request for each environment in the list. 
 The responses are filtered to show a list of the state of each environment.
 
