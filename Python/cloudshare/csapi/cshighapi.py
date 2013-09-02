@@ -42,6 +42,9 @@ class CSHighApi (object):
 
     def extend_environment(self, envId):
         return self.call('env', 'ExtendEnvironment', EnvId=envId)
+        
+    def postpone_inactivity(self, envId):
+        return self.call('env', 'PostponeInactivityAction', EnvId=envId)
     
     def suspend_environment(self, envId):
         return self.call('env', 'SuspendEnvironment', EnvId=envId)
@@ -135,10 +138,16 @@ class CSHighApi (object):
     def mount_and_fetch_info_ext(self, envId):
         return self.call('env', 'MountAndFetchInfoExt', EnvId=envId)
 
+    def regenerate_cloudfolders_password(self):
+        return self.call('env', 'RegenerateCloudfoldersPassword')
+
     # Login
 
     def get_login_url(self, url):
         return self.call('env', 'GetLoginUrl', Url=url)
+        
+    def who_am_i(self, userId):
+        return self.call('env', 'WhoAmI', UserId=userId)
         
     # RDP
 

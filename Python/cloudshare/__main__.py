@@ -183,6 +183,10 @@ def main():
     def printFormattedEnvExtend(content):
         if content and content['envId']:
             print 'Environment is extending'
+
+    def printFormattedEnvPostpone(content):
+        if content and content['is_success'] and content['message']:
+            print 'Environment will be suspended in ' + content['message'] + ' minutes'
             
     def printFormattedEnvRevert(content):
         if content and content['envId']:
@@ -205,7 +209,7 @@ def main():
 
         @controller.expose(help="command under the env base namespace", hide=True)
         def default(self):
-            print 'Available commands: resume | suspend | extend | revert | revertto | delete'
+            print 'Available commands: resume | suspend | extend | postpone | revert | revertto | delete'
         
         @controller.expose(help="Resume environment")
         def resume(self):
@@ -227,6 +231,13 @@ def main():
                 sendToOutput(api.extend_environment(self.pargs.envId), self.pargs, printFormattedEnvExtend)
             else:
                 print 'Usage: env extend -i=<ENV_ID>'
+                
+        @controller.expose(help="Postpone environment suspend time")
+        def postpone(self):
+            if self.pargs.envId:
+                sendToOutput(api.postpone_inactivity(self.pargs.envId), self.pargs, printFormattedEnvPostpone)
+            else:
+                print 'Usage: env postpone -i=<ENV_ID>'
 
         @controller.expose(help="Revert environment")
         def revert(self):
@@ -375,6 +386,10 @@ def main():
             print 'Windows folder: ' + content['windowsFolder']
             print 'Linux folder: ' + content['linuxFolder']
             
+    def printFormattedRegeneratePassword(content):
+        if content and content['new_password']:
+            print 'CloudFolder password was changed and it is now \'' + content['new_password'] + '\''
+            
     class CloudfoldersController(controller.CementBaseController):
 
         class Meta:
@@ -386,7 +401,7 @@ def main():
 
         @controller.expose(help="command under the cf base namespace", hide=True)
         def default(self):
-            print 'Available commands: info | mount | unmount | mountext'
+            print 'Available commands: info | mount | unmount | mountext | passwordregen'
         
         @controller.expose(help="CloudFolders info")
         def info(self):
@@ -412,6 +427,10 @@ def main():
                 sendToOutput(api.mount_and_fetch_info_ext(self.pargs.envId), self.pargs, printFormattedCloudFoldersMountExt)
             else:
                 print 'Usage: cf mountext -i=<ENV_ID>'
+                
+        @controller.expose(help="Regenerate CloudFolders password")
+        def passwordregen(self):
+            sendToOutput(api.regenerate_cloudfolders_password(), self.pargs, printFormattedRegeneratePassword)
                 
     #======================================================================================================================================
     #== Template Controller
@@ -541,6 +560,13 @@ def main():
     def printFormattedLoginGet(content):
         print content['login_url']
     
+    def printFormattedWhoAmI(content):
+        if content:
+            print 'User is ' + content['first_name'] + ' ' + content['last_name']
+            print 'Email:' + content['email']
+            print 'Phone:' + content['phone']
+            print 'Company:' + content['company']
+    
     class LoginController(controller.CementBaseController):
 
         class Meta:
@@ -549,11 +575,12 @@ def main():
             stacked_on = None
             description = "Login and manage your credentials"
             arguments = [ ( ['-u', '--url'], dict(dest='url', help='url to redirect to') ),
+                        ( ['-ui', '--user-id'], dict(dest='userId', help='user API id') ),
                         ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),]
 
         @controller.expose(help="command under the login base namespace", hide=True)
         def default(self):
-            print 'Available commands: geturl'
+            print 'Available commands: geturl | whoami'
 
         @controller.expose(help="Get a url that logs you automatically to CloudShare")
         def geturl(self):
@@ -562,7 +589,13 @@ def main():
             else:
                 print 'Usage: login geturl -u=<URL>'
 
-        
+        @controller.expose(help="Get basic info about your user")
+        def whoami(self):
+            if self.pargs.userId:
+                sendToOutput(api.who_am_i(self.pargs.userId), self.pargs, printFormattedWhoAmI)
+            else:
+                sendToOutput(api.who_am_i('IDENTITY'), self.pargs, printFormattedWhoAmI)
+                
     #======================================================================================================================================
     #== Snapshot Controller
     #======================================================================================================================================   
