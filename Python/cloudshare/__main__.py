@@ -130,7 +130,7 @@ def main():
             status = vm['status_text']
             if status == 'In progress' and vm['progress']:
                 status = str(vm['progress']) + '%'
-            print '    ' + vm['vmId'] + ' - ' + vm['name'] + ' (' + status + ')'
+            print '    ' + vm['id'] + ' - ' + vm['name'] + ' (' + status + ')'
      
     class InfoController(controller.CementBaseController):
 
