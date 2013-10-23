@@ -17,10 +17,10 @@ class CSHighApi (object):
         return self.call('env', 'ListEnvironments')
 
     def list_environments_with_state(self):
-        return self.call('env', 'ListEnvironmentsWithState')
+        return self.call('env', 'ListEnvironmentsWithStateExt')
 
     def get_environment_status(self, envId):
-        return self.call('env', 'GetEnvironmentState', EnvId=envId)
+        return self.call('env', 'GetEnvironmentStateExt', EnvId=envId)
 
     def get_environment_status_list(self):
         envs = self.list_environments()
@@ -117,6 +117,9 @@ class CSHighApi (object):
     
     def execute_path(self, envId, vmId, path):
         return self.call('env', 'ExecutePathExt', EnvId=envId, VmId=vmId, Path=path)
+
+    def edit_machine_hardware(self, envId, vmId, numCpus=None,mbRAM=None, gbDisk=None):
+        return self.call('env', 'EditMachineHardware', EnvId=envId, VmId=vmId, NumCpus=numCpus, MemorySizeMBs=mbRAM, DiskSizeGBs=gbDisk)
 
     def check_execution_id(self, envId, vmId, exec_id):
         return self.call('env', 'CheckExecutionStatus', EnvId=envId, VmId=vmId, ExecutionId=exec_id)    

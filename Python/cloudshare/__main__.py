@@ -282,6 +282,13 @@ def main():
     def printFormattedVmExecPath(content):
         if content and content['executionId']:
             print 'Script is being executed on VM'
+
+    def printFormattedEditHw(content):
+        if content:
+            print "VM's hardware is being updated"
+        if content['conflictsFound']:
+            print 'Warning: CloudShare is now handling a conflicting edit hardware change. Conflicting resources:\n'
+            print ','.join(content['conflicts'])
             
     def printFormattedVmCheckExecId(content):
         if content:
@@ -315,14 +322,21 @@ def main():
             interface = controller.IController
             stacked_on = None
             description = "Manage your VMs"
-            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), ( ['-v', '--vm-id'], dict(dest='vmId', help='virtual machine id') ), ( ['-s', '--script-path'], dict(dest='scriptPath', help='script path') ),
+            arguments = [ ( ['-i', '--env-id'], dict(dest='envId', help='environment id') ), 
+                        ( ['-v', '--vm-id'],    dict(dest='vmId', help='virtual machine id') ),
+                        ( ['-s', '--script-path'], dict(dest='scriptPath', help='script path') ),
                         ( ['-e', '--exec-id'], dict(dest='execId', help='execution id') ),
                         ( ['-f', '--formatting'], dict(dest='formatting', help='Output formatting options(RAWJSON | FORMATTED)') ),
-                        ( ['-c'], dict(dest='noConfirm', help='no confirmations', action='store_true') ),]
+                        ( ['-c'], dict(dest='noConfirm', help='no confirmations', action='store_true') ),
+                        ( ['-n', '--num-cpus'],    dict(dest='numCpus', help='num requested cpus') ),
+                        ( ['-r', '--mb-ram'], dict(dest='mbRam', help='amount of requested ram') ),
+                        ( ['-d', '--gb-disk'], dict(dest='gbDisk', help='amount of requested disk') ),
+
+                        ]
 
         @controller.expose(help="command under the vm base namespace", hide=True)
         def default(self):
-            print 'Available commands: delete | revert | reboot | execute | checkexecute'
+            print 'Available commands: delete | revert | reboot | execute | checkexecute | edithw'
         
         @controller.expose(help="Delete vm")
         def delete(self):
@@ -345,7 +359,15 @@ def main():
                 sendToOutput(api.reboot_vm(self.pargs.envId, self.pargs.vmId), self.pargs, printFormattedVmReboot)
             else:
                 print 'Usage: vm reboot -i=<ENV_ID> -v=<VM_ID>'
-                
+        
+        @controller.expose(help="Edits the hardware of the machine")
+        def edithw(self):
+            if self.pargs.envId and self.pargs.vmId:
+                sendToOutput(api.edit_machine_hardware(self.pargs.envId, self.pargs.vmId, self.pargs.numCpus, self.pargs.mbRam, self.pargs.gbDisk)
+                    , self.pargs, printFormattedEditHw)
+            else:
+                print 'Usage: vm execute -i=<ENV_ID> -v=<VM_ID> [-n=<NUM_CPUS>] [-r=<MB_RAM>] [-d=<GB_DISK>]'
+
         @controller.expose(help="Execute script on vm")
         def execute(self):
             if self.pargs.envId and self.pargs.vmId and self.pargs.scriptPath:
@@ -881,9 +903,14 @@ def main():
         else:
             sys.stderr.write('Missing credentials in `' + getConfigFile() + '`, you can edit credentials using: \ncloudshare config setcredentials -i=<API_ID> -k=<API_KEY>\n\n')
             api = CSHighApi('', '', 'v2', 'use.cloudshare.com')
-            
-        app.run()
-        
+        try: 
+            app.run()
+        except ApiException as p:
+            sys.stderr.write("API Call returned an error\n")
+            error_details = json.loads(p.content.decode('utf-8'))
+            sys.stderr.write("status_text = " +  error_details["status_text"] + '\n')
+            sys.stderr.write("status_code = " + error_details["status_code"] + '\n')
+            raise
     finally:
         app.close()
 
