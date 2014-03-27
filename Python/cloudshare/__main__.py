@@ -534,7 +534,7 @@ def main():
             ( ['-s', '--snapshot-id'], dict(dest='snapshotId', help='snapshot id') ), 
             ( ['-n', '--new-name'], dict(dest='newName', help='environment new name') ), 
             ( ['-d', '--description'], dict(dest='description', help='new environment description') ), 
-            ( ['-show-all'], dict(dest='showAll', help='show all - use no filters', action='store_true') ), 
+            ( ['-showall'], dict(dest='showAll', help='show all - use no filters', action='store_true') ), 
             ( ['-pn', '--project-name'], dict(dest='projectName', help='project name') ), 
             ( ['-p', '--project-filter'], dict(dest='projectFilter', help='project name filter') ), 
             ( ['-b', '--blueprint-filter'], dict(dest='blueprintFilter', help='blueprint name filter') ), 
@@ -611,7 +611,7 @@ def main():
             else:
                 print 'Usage: login geturl -u=<URL>'
 
-        @controller.expose(help="Get basic info about your user")
+        @controller.expose(help="Get basic info about a user")
         def whoami(self):
             if self.pargs.userId:
                 sendToOutput(api.who_am_i(self.pargs.userId), self.pargs, printFormattedWhoAmI)
