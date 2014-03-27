@@ -557,7 +557,7 @@ def main():
                 else:
                     sendToOutput(api.create_ent_app_env_options(projectFilter, blueprintFilter, policyFilter), self.pargs, printFormattedCreateOptions)
             else:
-                print 'Usage: create options [-showAll] | [-p=<PROJECT_FILTER>] [-b=<BLUEPRINT_FILTER>] [-o=<ENVIRONMENT_POLICY_FILTER>]'
+                print 'Usage: create options [-showall] | [-p=<PROJECT_FILTER>] [-b=<BLUEPRINT_FILTER>] [-o=<ENVIRONMENT_POLICY_FILTER>]'
                 
         @controller.expose(help="Create environment from an existing snapshot")
         def env(self):
