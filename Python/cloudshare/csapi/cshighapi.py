@@ -8,9 +8,6 @@ class CSHighApi (object):
     def call(self, category, command, **params):
         return self.lowapi.call(category, command, **params).json()['data']
         
-    def set_test_mode(self, test_mode):
-        self.lowapi.set_test_mode(test_mode)
-
     # Env info
 
     def list_environments(self):
