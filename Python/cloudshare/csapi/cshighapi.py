@@ -23,9 +23,6 @@ class CSHighApi (object):
         envs = self.list_environments()
         return [self.get_environment_status(env['envId']) for env in envs]
 
-    def get_snapshots(self, envId):
-        return self.call('env', 'GetSnapshots', EnvId=envId)
-
     # General env actions
 
     def resume_environment(self, envId):
