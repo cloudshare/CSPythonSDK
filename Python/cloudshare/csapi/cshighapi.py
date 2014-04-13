@@ -92,7 +92,7 @@ class CSHighApi (object):
         return self.call('env', 'EntAppTakeSnapshot', EnvId=envId, SnapshotName=snapshot_name, Description=description, SetAsDefault='true' if set_as_default else 'false')
 
     def ent_app_take_snapshot_to_new_blueprint(self, envId, snapshot_name, new_blueprint_name, description=''):
-        return self.call('env', 'EntAppTakeSnapshotToNewBlueprint', EnvId=envId, SnapshotName=snap, NewBlueprintName=new_blueprint_name, Description=description)
+        return self.call('env', 'EntAppTakeSnapshotToNewBlueprint', EnvId=envId, SnapshotName=snapshot_name, NewBlueprintName=new_blueprint_name, Description=description)
 
     def ent_app_take_snapshot_to_existing_blueprint(self, envId, snapshot_name, otherBlueprintId, description='', set_as_default=True):
         return self.call('env', 'EntAppTakeSnapshotToExistingBlueprint', EnvId=envId, 
