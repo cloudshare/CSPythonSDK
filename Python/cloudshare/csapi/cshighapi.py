@@ -154,4 +154,28 @@ class CSHighApi (object):
     # Admin 
     
     def list_allowed_commands(self):
-        return self.call('admin', 'ListAllowedCommands') 
+        return self.call('admin', 'ListAllowedCommands')
+
+    # Training 
+       
+    def list_classes(self, project_filter=''):
+		return self.call('admin', 'ListClasses', ProjectFilter=project_filter)
+        
+    def register_student(self, classId, email, firstName, lastName):
+		return self.call('admin', 'RegisterStudent', ClassId=classId, Email=email, FirstName=firstName, LastName=lastName)
+
+    def register_students(self, students):
+		"""register students into a class 
+			Args:
+				students: a list of students i.e. [{'classId':'xxxxxxx', 'email':'john@cloudshare.com','firstName':'John',  'lastName':'Doe'}]
+		"""
+		all_results = list()
+		for student in students:
+			result = self.register_student(student['classId'], student['email'], student['firstName'], student['lastName'])
+			all_results.append(result)
+		return all_results
+		
+		
+		
+		
+		
